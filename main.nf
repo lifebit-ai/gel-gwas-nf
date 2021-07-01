@@ -47,6 +47,7 @@ process gwas_masking {
   tag "$name"
   publishDir "${params.outdir}/gwas_masking", mode: 'copy'
   echo true
+  beforeScript 'export AWS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt'
 
   input:
   set val(name), val(chr), file(vcf), file(index) from vcfsCh
