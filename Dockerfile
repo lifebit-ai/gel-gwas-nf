@@ -69,7 +69,8 @@ ENV PATH="$PATH:/plink2"
 
 # Install the conda environment
 COPY environment.yml /
-RUN conda env create --quiet -f /environment.yml && conda clean -a
+RUN conda install -c conda-forge mamba -y 
+RUN mamba env create -f /environment.yml && conda clean -a
 
 # Add conda installation dir to PATH (instead of doing 'conda activate')
 ENV PATH /opt/conda/envs/gel-gwas-1.0dev/bin:$PATH
