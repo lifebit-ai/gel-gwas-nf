@@ -341,6 +341,7 @@ if (!params.skip_report) {
 
     output:
     set file("*png"), file("*csv") into ch_report_outputs_all
+    file("multiqc_report.html")
 
     script:
 
@@ -372,8 +373,8 @@ if (!params.skip_report) {
         --output_tag='${params.output_tag}'
 
     # Generates the report
-    #Rscript -e "rmarkdown::render('gwas_report.Rmd', params = list(manhattan='${params.output_tag}_manhattan.png',qqplot='${params.output_tag}_qqplot_ci.png', gwascat='gwascat_subset.csv', saige_results='saige_results_top_n.csv'))"
-    #mv gwas_report.html multiqc_report.html
+    Rscript -e "rmarkdown::render('gwas_report.Rmd', params = list(manhattan='${params.output_tag}_manhattan.png',qqplot='${params.output_tag}_qqplot_ci.png', gwascat='gwascat_subset.csv', saige_results='saige_results_top_n.csv'))"
+    mv gwas_report.html multiqc_report.html
 
     # Generates the ipynb
     #jupytext --to ipynb gwas_report.Rmd
